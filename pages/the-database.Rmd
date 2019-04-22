@@ -1,0 +1,60 @@
+---
+title: "The database"
+author: Ilya Chechuro, Michael Daniel, Samira Verhees
+date: "`r Sys.Date()`"
+output:
+  rmdformats::readthedown:
+    highlight: kate
+---
+
+## The database
+
+For now, the table shows source **Concepts** and target **Words**. Each target word is grouped in a similarity **Set** - a set of words that have the same meaning and look similar. In the future, data will be added on borrowing sources. Metadata includes the name of the **Village** where the word was recorded, the administrative **District** it is part of, the **Language** spoken there, and the **List ID**: these ID's correspond to a particular speaker or in some cases a written source like a dictionary. Data is accessible at: [Github/LingConLab/DagloanDatabase](https://github.com/LingConLab/DagloanDatabase).
+<br>
+The dataset in the dummy format is available [here](https://github.com/LingConLab/Dagloan_database/blob/master/Convert/words_28032019_dummy.tsv). 
+<br>
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+# Create a searchable datatable with filters on top
+database$`Concept nr.` <- as.factor(database$`Concept nr.`)
+database$`List ID` <- as.factor(database$`List ID`)
+database$Gender <- as.factor(database$Gender)
+database$Birthyear <- as.integer(database$Birthyear)
+database$Family <- as.factor(database$Family)
+database$Group <- as.factor(database$Group)
+database$Language <- as.factor(database$Language)
+database$Village <- as.factor(database$Village)
+database$Concept <- as.factor(database$Concept)
+database$Set <- as.factor(database$Set)
+database$District <- as.factor(database$District)
+
+
+database %>% datatable(class = 'cell-border stripe', 
+          filter = 'top', 
+          #options = list(pageLength = 100),
+          extensions = 'Buttons', 
+          options = list(
+            autoWidth = TRUE,
+            columnDefs = list(list(width = '50px', targets = c(1, 5))),
+            pageLength = 10,
+            dom = 'lBfrtip',
+            buttons = c('copy', 'csv')))
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+# Show the data with the dummy variables 
+
+#datatable(dummy_dataset, class = 'cell-border stripe', filter = 'top',
+#          extensions = 'Buttons', fillContainer = TRUE, options = list(
+#            pageLength = 100,
+#            dom = 'Bfrtip',
+#            buttons = c('copy', 'csv')
+#  ))
+```
+---
+
+Version: `r Sys.Date()`. For questions or comments contact jh.verhees@gmail.com.
+
+---
