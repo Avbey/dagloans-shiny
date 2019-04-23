@@ -23,40 +23,39 @@ body <- dashboardBody(
   ),
   tabItems(
     tabItem(tabName = "about",
-            includeMarkdown(knitr::knit("pages/about.Rmd"))
+            uiOutput("about")
     ),
 
     tabItem(tabName = "howto",
-            includeMarkdown(knitr::knit("pages/how-to-cite.Rmd"))
+            uiOutput("howto")
     ),
 
     tabItem(tabName = "database",
-            try(
-            includeMarkdown(knitr::knit("pages/the-database.Rmd")))
+            uiOutput("theDatabase")
     ),
 
     tabItem(tabName = "mapsurv",
-            h2("Content 3")
+            h2("upcoming")
     ),
 
     tabItem(tabName = "maplex",
-            h2("Content 4")
+            h2("upcoming")
     ),
 
     tabItem(tabName = "sourceslex",
-            h2("Content 5")
+            h2("upcoming")
     ),
 
     tabItem(tabName = "cluster",
-            h2("Content 6")
+            h2("upcoming")
     ),
 
     tabItem(tabName = "speakers",
-            h2("Content 7")
+            h2("upcoming")
     ),
 
     tabItem(tabName = "villages",
-            h2("Content 8")
+            h2("upcoming")
     )
   )
 )

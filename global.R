@@ -1,18 +1,17 @@
 library(tidyverse)
 library(DT)
 library(lingtypology)
-library(webshot)
 
-options(max.print="75")
-opts_chunk$set(echo=FALSE,
-               cache=TRUE,
-               prompt=FALSE,
-               tidy=TRUE,
-               comment=NA,
-               message=FALSE,
-               warning=FALSE)
-opts_knit$set(width=75)
-knitr::opts_knit$set(global.device = TRUE)
+# options(max.print="75")
+# opts_chunk$set(echo=FALSE,
+#                cache=TRUE,
+#                prompt=FALSE,
+#                tidy=TRUE,
+#                comment=NA,
+#                message=FALSE,
+#                warning=FALSE)
+# opts_knit$set(width=75)
+# knitr::opts_knit$set(global.device = TRUE)
 
 # loading data - mind the date in the csv filename!
 
