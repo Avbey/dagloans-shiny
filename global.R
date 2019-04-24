@@ -1,6 +1,7 @@
 library(tidyverse)
 library(DT)
 library(lingtypology)
+library(leaflet)
 
 # options(max.print="75")
 # opts_chunk$set(echo=FALSE,

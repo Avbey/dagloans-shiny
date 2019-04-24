@@ -7,5 +7,5 @@ shinyServer(function(input, output) {
   output$about <- renderUI({aboutPage})
   output$howto <- renderUI({howPage})
   output$theDatabase <- renderUI({databasePage})
-  #output$mapsurv <- 
+  output$mapsurv <- renderUI({mapSurvPage})
 })

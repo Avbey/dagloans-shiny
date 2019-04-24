@@ -35,7 +35,7 @@ body <- dashboardBody(
     ),
 
     tabItem(tabName = "mapsurv",
-            h2("upcoming")
+            uiOutput("mapsurv")
     ),
 
     tabItem(tabName = "maplex",

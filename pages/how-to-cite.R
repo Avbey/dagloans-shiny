@@ -1,6 +1,6 @@
 howPage <- fluidPage(fluidRow(column(
   12,
-  h5(
+  p(
     "If you use data from the database in your research, please cite as follows:"
   ),
   p(
