@@ -39,7 +39,7 @@ body <- dashboardBody(
     ),
 
     tabItem(tabName = "maplex",
-            h2("upcoming")
+            uiOutput("maplex")
     ),
 
     tabItem(tabName = "sourceslex",
