@@ -3,6 +3,7 @@ source("pages/how-to-cite.R")
 source("pages/the-database.R")
 source("pages/mapsurv.R")
 source("pages/maplex.R")
+source("pages/sourceslex.R")
 
 shinyServer(function(input, output) {
   output$about <- renderUI({aboutPage})
@@ -10,4 +11,5 @@ shinyServer(function(input, output) {
   output$theDatabase <- renderUI({databasePage})
   output$mapsurv <- renderUI({mapSurvPage})
   output$maplex <- renderUI({mapLexPage})
+  output$sourceslex <- renderUI({sourcesLexPage})
 })

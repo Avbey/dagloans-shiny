@@ -1,5 +1,6 @@
-library(tidyverse)
 library(DT)
+library(tidyverse)
+library(ggplot2)
 library(lingtypology)
 library(leaflet)
 

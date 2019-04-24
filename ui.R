@@ -43,7 +43,7 @@ body <- dashboardBody(
     ),
 
     tabItem(tabName = "sourceslex",
-            h2("upcoming")
+            uiOutput("sourceslex")
     ),
 
     tabItem(tabName = "cluster",
