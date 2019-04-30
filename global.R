@@ -1,19 +1,11 @@
 library(DT)
 library(tidyverse)
 library(ggplot2)
+library(plotly)
 library(lingtypology)
+library(dendextend)
+library(pvclust)
 library(leaflet)
-
-# options(max.print="75")
-# opts_chunk$set(echo=FALSE,
-#                cache=TRUE,
-#                prompt=FALSE,
-#                tidy=TRUE,
-#                comment=NA,
-#                message=FALSE,
-#                warning=FALSE)
-# opts_knit$set(width=75)
-# knitr::opts_knit$set(global.device = TRUE)
 
 # loading data - mind the date in the csv filename!
 
@@ -37,5 +29,6 @@ words_meta$Set <- paste(words_meta$`Concept nr.`, "-", words_meta$Stem)
 database <- words_meta %>% select(`Concept nr.`, Concept, Word, `Standardized Transcription`, Set, Village, Language, Family, Group, District, `List ID`, Birthyear, Gender)
 
 #dummy_dataset <- read.csv("words01032019_dummy.tsv", sep = "\t", header = TRUE)
+
 
 

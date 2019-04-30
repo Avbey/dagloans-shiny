@@ -4,6 +4,9 @@ source("pages/the-database.R")
 source("pages/mapsurv.R")
 source("pages/maplex.R")
 source("pages/sourceslex.R")
+# source("pages/cluster-dendrogram.R")
+source("pages/mediation-speakers.R")
+source("pages/mediation-villages.R")
 
 shinyServer(function(input, output) {
   output$about <- renderUI({aboutPage})
@@ -12,4 +15,7 @@ shinyServer(function(input, output) {
   output$mapsurv <- renderUI({mapSurvPage})
   output$maplex <- renderUI({mapLexPage})
   output$sourceslex <- renderUI({sourcesLexPage})
+  # output$clusterDend <- renderUI({clusterDendPage})
+  output$mediationSpeakers <- renderUI({mediationSpeakersPage})
+  output$mediationVillages <- renderUI({mediationVillagesPage})
 })

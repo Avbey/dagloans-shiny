@@ -1,6 +1,4 @@
 library(shinydashboard)
-library(knitr)
-library(rmdformats)
 
 sidebar <- dashboardSidebar(
   sidebarMenu(
@@ -27,19 +25,19 @@ body <- dashboardBody(
     ),
 
     tabItem(tabName = "howto",
-            uiOutput("howto")
+           uiOutput("howto")
     ),
 
     tabItem(tabName = "database",
-            uiOutput("theDatabase")
+           uiOutput("theDatabase")
     ),
 
     tabItem(tabName = "mapsurv",
-            uiOutput("mapsurv")
+           uiOutput("mapsurv")
     ),
 
     tabItem(tabName = "maplex",
-            uiOutput("maplex")
+           uiOutput("maplex")
     ),
 
     tabItem(tabName = "sourceslex",
@@ -47,15 +45,16 @@ body <- dashboardBody(
     ),
 
     tabItem(tabName = "cluster",
-            h2("upcoming")
+            # uiOutput("clusterDend")
+            h2("upcoming") 
     ),
 
     tabItem(tabName = "speakers",
-            h2("upcoming")
+            uiOutput("mediationSpeakers")
     ),
 
     tabItem(tabName = "villages",
-            h2("upcoming")
+            uiOutput("mediationVillages")
     )
   )
 )
