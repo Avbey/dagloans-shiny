@@ -4,7 +4,7 @@ row.names(all_turkic_wide) <- all_turkic_wide$Speaker
 all_turkic_wide <- all_turkic_wide[,-c(1:4)]
 all_turkic_wide <- t(all_turkic_wide)
 all_turkic_wide <- as.data.frame(all_turkic_wide)
-#all_turkic_wide$Lexeme <- row.names(all_turkic_wide)
+
 turkic=as.matrix(all_turkic_wide)
 turkic[is.na(turkic)] <- 0
 turkic=as.data.frame(turkic)
@@ -26,7 +26,8 @@ all_turkic_lgs$Lezgian <- all_turkic_wide$Khlut
 all_turkic_lgs <- all_turkic_lgs[,-c(1:4,6,7)]
 all_turkic_lgs <- ifelse(all_turkic_lgs > 0, 1, 0)
 all_turkic_lgs <- as.data.frame(all_turkic_lgs)
+
 ups2 <- renderPlot({
-upset(all_turkic_lgs, 
+  upset(all_turkic_lgs, 
       order.by="degree", sets = colnames(all_turkic_lgs), matrix.color="blue", point.size=5)
 })

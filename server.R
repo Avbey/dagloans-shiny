@@ -10,9 +10,11 @@ source("pages/mediation-speakers.R")
 source("pages/mediation-villages.R")
 source("pages/mediation-turkic.R")
 source("pages/mediation-azer.R")
+source("pages/mediation-via-major.R")
 
 shinyServer(function(input, output) {
   
+  #aux upsetR
   mat_prop <- reactive({
     mat_prop <- input$mbratio
   })
@@ -103,6 +105,52 @@ shinyServer(function(input, output) {
     return(input$keep.order)
   })
   
+  Specific_sets <- reactive({
+    Specific_sets <- as.character(c(input$upset_sets))
+  })
+  
+  FindStartEnd <- function(data){
+    startend <- c()
+    for(i in 1:ncol(data)){
+      column <- data[, i]
+      column <- (levels(factor(column)))
+      if((column[1] == "0") && (column[2] == "1" && (length(column) == 2))){
+        startend[1] <- i
+        break
+      }
+      else{
+        next
+      }
+    }
+    for(i in ncol(data):1){
+      column <- data[ ,i]
+      column <- (levels(factor(column)))
+      if((column[1] == "0") && (column[2] == "1") && (length(column) == 2)){
+        startend[2] <- i
+        break
+      }
+      else{
+        next
+      }
+    }
+    return(startend)
+  }
+  
+  startEnd <- reactive({
+    startEnd <- FindStartEnd(all_turkic_wide)
+  })
+  
+  output$sets <- renderUI({
+      data <- all_turkic_wide[startEnd()[1]:startEnd()[2]]
+      top <- colSums(data)
+      top <- as.character(head(names(top[order(top, decreasing = T)]), 7))
+      sets <- selectInput('upset_sets', label="Select villages (at least two) ",
+                          choices = as.character(colnames(all_turkic_wide[ , startEnd()[1]:startEnd()[2]])),
+                          multiple=TRUE, selectize=TRUE, selected = top)
+    return(sets)
+  })
+  
+  #main
   output$about <- renderUI({aboutPage})
   output$howto <- renderUI({howPage})
   output$theDatabase <- renderUI({databasePage})
@@ -115,7 +163,7 @@ shinyServer(function(input, output) {
   output$mediationVillages <- renderUI({mediationVillagesPage})
   output$mediationTurkic <- renderPlot({
     upset(all_turkic_wide, 
-          sets = colnames(all_turkic_wide), 
+          sets = Specific_sets(), 
           nintersects = input$nintersections,
           point.size = input$pointsize,
           line.size = line_size(),
@@ -179,4 +227,5 @@ shinyServer(function(input, output) {
     }
   )
   output$mediationAzer <- renderUI({mediationAzerPage})
+  #output$mediationMajor <- renderUI({})
 })
