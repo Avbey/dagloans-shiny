@@ -137,15 +137,15 @@ shinyServer(function(input, output) {
   }
   
   startEnd <- reactive({
-    startEnd <- FindStartEnd(all_turkic_wide)
+    startEnd <- FindStartEnd(all_turkic_wide_mod)
   })
   
   output$sets <- renderUI({
-      data <- all_turkic_wide[startEnd()[1]:startEnd()[2]]
+      data <- all_turkic_wide_mod[startEnd()[1]:startEnd()[2]]
       top <- colSums(data)
       top <- as.character(head(names(top[order(top, decreasing = T)]), 7))
       sets <- selectInput('upset_sets', label="Select villages (at least two) ",
-                          choices = as.character(colnames(all_turkic_wide[ , startEnd()[1]:startEnd()[2]])),
+                          choices = as.character(colnames(all_turkic_wide_mod[ , startEnd()[1]:startEnd()[2]])),
                           multiple=TRUE, selectize=TRUE, selected = top)
     return(sets)
   })
@@ -162,7 +162,7 @@ shinyServer(function(input, output) {
   output$mediationSpeakers <- renderUI({mediationSpeakersPage})
   output$mediationVillages <- renderUI({mediationVillagesPage})
   output$mediationTurkic <- renderPlot({
-    upset(all_turkic_wide, 
+    upset(all_turkic_wide_mod, 
           sets = Specific_sets(), 
           nintersects = input$nintersections,
           point.size = input$pointsize,
@@ -203,11 +203,11 @@ shinyServer(function(input, output) {
       else
         pdf(file, width = width/100, height = height/100, onefile=FALSE)
       
-      upset(all_turkic_wide,
+      upset(all_turkic_wide_mod,
             nintersects = input$nintersections,
             point.size = input$pointsize,
             line.size = line_size(),
-            sets = colnames(all_turkic_wide),
+            sets = colnames(all_turkic_wide_mod),
             order.by = orderdat(),
             main.bar.color= main_bar_color(),
             sets.bar.color= sets_bar_color(),
