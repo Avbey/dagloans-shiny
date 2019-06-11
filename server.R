@@ -11,6 +11,8 @@ source("pages/mediation-villages.R")
 source("pages/mediation-turkic.R")
 source("pages/mediation-azer.R")
 source("pages/mediation-via-major.R")
+source("pages/acknowledgements.R")
+source("pages/references.R")
 
 shinyServer(function(input, output) {
   
@@ -227,5 +229,7 @@ shinyServer(function(input, output) {
     }
   )
   output$mediationAzer <- renderUI({mediationAzerPage})
-  #output$mediationMajor <- renderUI({})
+  output$mediationAzerMajor <- renderUI({mediationAzerMajorPage})
+  output$acknowledgements <- renderUI({acknowledgementsPage})
+  output$references <- renderUI({referencesPage})
 })

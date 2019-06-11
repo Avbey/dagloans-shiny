@@ -14,7 +14,9 @@ sidebar <- dashboardSidebar(
     menuItem("Mediation of Turkic influence (Villages)", tabName = "mediation-villages", icon = icon("chart-bar")),
     menuItem("Mediation of Total Turkic Influence", tabName = "mediation-turkic", icon = icon("chart-bar")),
     menuItem("Mediation of Standard Azerbaijani Influence", tabName = "mediation-azer", icon = icon("chart-bar")),
-    menuItem(HTML("Mediation of Turkic Influence<br>via Major Languages"), tabName = "mediation-major", icon = icon("chart-bar"))
+    menuItem(HTML("Mediation of Turkic Influence<br>via Major Languages"), tabName = "mediation-azer-major", icon = icon("chart-bar")),
+    menuItem("Acknowledgements", tabName = "acknowledgements", icon = icon("bookmark")),
+    menuItem("References", tabName = "references", icon = icon("paperclip"))
   ),
   width = 308
 )
@@ -249,8 +251,14 @@ body <- dashboardBody(
     tabItem(tabName = "mediation-azer",
             uiOutput("mediationAzer")
     ),
-    tabItem(tabName = "mediation-major",
-            uiOutput("mediationMajor")
+    tabItem(tabName = "mediation-azer-major",
+            uiOutput("mediationAzerMajor")
+    ),
+    tabItem(tabName = "acknowledgements",
+            uiOutput("acknowledgements")
+    ),
+    tabItem(tabName = "references",
+            uiOutput("references")
     )
   )
 )

@@ -51,6 +51,9 @@ dend2 <- renderPlot({
 
 clusterDendStrictPage <- fluidPage(fluidRow(column(
   12,
-  p("This tree is built as follows. 0 distance is given only to two matching non-empty cells, otherwise the distance is 1. This leads to the huge distances even if speakers are similar. The NA's are counted."),
+  p("The dendrogram presented here show how the word lists collected from diffferent speakers group according 
+    to the sets of loanwords of different origin. This tree is built as follows. 0 distance is given only to two matching non-empty cells, 
+    otherwise the distance is 1. This leads to the huge distances even if speakers are similar. The NA's are counted. 
+    This dendrogram is different from the previous one in that the penalties for matches between speakers are higher."),
   div(dend2)
 )))

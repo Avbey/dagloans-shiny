@@ -51,6 +51,7 @@ result %>% pvrect(alpha=0.95)
 
 clusterDendPage <- fluidPage(fluidRow(column(
   12,
-  p("This tree is built as follows. 0 distance is given only to two matching non-empty cells, otherwise the distance is 1. The NA's are not counted."),
+  p("The dendrogram presented here show how the word lists collected from diffferent speakers group according to the sets of loanwords of different origin.
+    This tree is built as follows. 0 distance is given only to two matching non-empty cells, otherwise the distance is 1. The NA’s are not counted."),
   div(dend1)
 )))

@@ -1,4 +1,4 @@
-dict_turkic <-  as.data.frame(t(d[which(d$D_Azerbaijani>0 & d$D_Russian != 1 & d$D_Arabic != 1 & d$D_Persian != 1),]))
+dict_turkic <-  as.data.frame(t(d[which(d$D_Azerbaijani>0 & d$D_Russian  %in% c(0,NA,"NA") & d$D_Arabic  %in% c(0,NA,"NA") & d$D_Persian  %in% c(0,NA,"NA")),]))
 dict_turkic$Speaker <- rownames(dict_turkic)
 dict_turkic <- left_join(Districts, dict_turkic, by= c("Speaker"))
 #head(all_turkic)
@@ -52,5 +52,7 @@ upset(all_turkic_lgs,
 
 mediationAzerPage <- fluidPage(fluidRow(column(
   12,
+  p("The plot presented here illustrates the intersections between the sets of loans from 
+    Standard Azerbaijani between villages (plot 1) and regions (plot 2)."),
   div(ups2), div(ups3)
 )))

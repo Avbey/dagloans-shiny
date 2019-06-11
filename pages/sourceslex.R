@@ -1,6 +1,3 @@
-words_src <- read.csv("data/words_01042019.tsv", header = TRUE, sep = "\t", na.strings = "NA", row.names = NULL)
-#write_tsv(as.data.frame(levels(as.factor(words$Concept))), "wordlist.tsv", na = "NA")
-
 d <- read.csv("data/convert/words_01042019_dummy.tsv", header = TRUE, sep = "\t", na.strings = "NA", row.names = NULL)
 #head(d)
 row.names(d) <- d[,1]
@@ -20,11 +17,13 @@ d$Turk_total <- turkic$D_Azerbaijani+turkic$D_Kumyk+turkic$Darvag1+turkic$Darvag
 
 d$AvarAndic_total <- turkic$D_Avar+turkic$D_Gagatli+turkic$Karata1+turkic$Karata2+turkic$Karata3+turkic$Karata4+turkic$Rikvani1+turkic$`Tad-Magitl1`+turkic$`Tad-Magitl2`+turkic$Tukita1+turkic$Zilo1+turkic$Zilo2+turkic$Tlibisho1+turkic$Tlibisho2+turkic$Tlibisho3+turkic$Tlibisho4+turkic$D_Bagvalal+turkic$Kusur1+turkic$Bezhta1+turkic$D_Bezhta1+turkic$D_Botlikh+turkic$D_Hinuq+turkic$D_Karata+turkic$D_Tsez+turkic$Kidero1+turkic$Kidero2+turkic$Kidero3+turkic$D_Bezhta2
 
+d$Khlut_total <- turkic$Khlut1 + turkic$Khlut2 + turkic$Khlut3 + turkic$Khlut4 + turkic$Khlut5
+
 #d <- as.data.frame(t(d))
 #head(d)
 
 #Preparing datasets for plotting
-all_turkic <-  as.data.frame(t(d[which(d$Turk_total>0 & d$D_Russian != 1 & d$D_Arabic != 1 & d$D_Persian != 1),]))
+all_turkic <-  as.data.frame(t(d[which(d$Turk_total>0 & d$D_Russian  %in% c(0,NA,"NA") & d$D_Arabic  %in% c(0,NA,"NA") & d$D_Persian  %in% c(0,NA,"NA")),]))
 all_turkic$Speaker <- rownames(all_turkic)
 all_turkic <- left_join(Districts, all_turkic, by= c("Speaker"))
 #head(all_turkic)
@@ -38,7 +37,7 @@ all_turkic <- gather(all_turkic,Lexeme,Present, the_ant_5:the_year_2,factor_key=
 
 avar_cognates <- read_tsv("data/Avar_Cognate_Test(Samira+Kusur).tsv")
 avar_cognates <- avar_cognates[which(avar_cognates$Cognate_Samira == "y"),]
-avar <-  as.data.frame(t(d[which(d$D_Avar>0 & d$D_Russian != 1 & d$D_Arabic != 1 & d$D_Persian != 1 & d$Turk_total == 0),]))
+avar <-  as.data.frame(t(d[which(d$D_Avar>0 & d$D_Russian  %in% c(0,NA,"NA") & d$D_Arabic  %in% c(0,NA,"NA") & d$D_Persian  %in% c(0,NA,"NA") & d$Turk_total == 0),]))
 avar$Speaker <- rownames(avar)
 avar <- left_join(Districts, avar, by= c("Speaker"))
 #avar$District <- as.factor(avar$District)
@@ -49,7 +48,7 @@ avar <- gather(avar,Lexeme,Present, the_ant_20:the_year_11,factor_key=TRUE)
 #head(avar)
 avar <- avar[-which(avar$Lexeme %in% avar_cognates$Lexeme.x),]
 
-#avar_cognate_test <- as.data.frame(t(d[which(d$AvarAndic_total>1 & d$D_Russian != 1 & d$D_Arabic != 1 & d$D_Persian != 1 & d$Turk_total == 0),]))
+#avar_cognate_test <- as.data.frame(t(d[which(d$AvarAndic_total>1 & d$D_Russian  %in% c(0,NA,"NA") & d$D_Arabic  %in% c(0,NA,"NA") & d$D_Persian  %in% c(0,NA,"NA") & d$Turk_total == 0),]))
 #avar_cognate_test$Speaker <- rownames(avar_cognate_test)
 #avar_cognate_test <- left_join(Districts, avar_cognate_test, by= c("Speaker"))
 #avar_cognate_test <- gather(avar_cognate_test,Lexeme,Present, the_ant_20:the_year_12,factor_key=TRUE)
@@ -65,7 +64,7 @@ avar <- avar[-which(avar$Lexeme %in% avar_cognates$Lexeme.x),]
 #  select(`Speaker`, Language.x, Village.x, District.x, Lexeme.x, `List ID`, Concept, `Concept nr.`, Word, Stem, Set)
 #write_tsv(avar_cognate_test, "Avar_Cognate_Test.tsv")
 
-kusur_cognate_test <- as.data.frame(t(d[which(d$Kusur1 == 1 & d$D_Avar == 1 & d$D_Arabic != 1 & d$D_Persian != 1 & d$Turk_total == 0),]))
+kusur_cognate_test <- as.data.frame(t(d[which(d$Kusur1 == 1 & d$D_Avar == 1 & d$D_Arabic  %in% c(0,NA,"NA") & d$D_Persian  %in% c(0,NA,"NA") & d$Turk_total == 0),]))
 kusur_cognate_test$Speaker <- rownames(kusur_cognate_test)
 kusur_cognate_test <- left_join(Districts, kusur_cognate_test, by= c("Speaker"))
 kusur_cognate_test <- gather(kusur_cognate_test,Lexeme,Present, the_ant_20:the_worm_16,factor_key=TRUE)
@@ -79,12 +78,12 @@ kusur_cognate_test <- merge(kusur_cognate_test, words_meta, by= c("SpkrLexeme"))
 kusur_cognate_test <- distinct (kusur_cognate_test)
 kusur_cognate_test <- kusur_cognate_test %>%
   select(`Speaker`, Language.x, Village.x, District.x, Lexeme.x, `List ID`, Concept, `Concept nr.`, Word, Stem, Set)
-write_tsv(kusur_cognate_test, "data/output/kusur_cognate_Test.tsv")
+#write_tsv(kusur_cognate_test, "kusur_cognate_Test.tsv")
 
 
 
 
-georgian <-  as.data.frame(t(d[which(d$D_Georgian>0 & d$D_Russian != 1 & d$D_Arabic != 1 & d$D_Persian != 1 & d$Turk_total == 0),]))
+georgian <-  as.data.frame(t(d[which(d$D_Georgian>0 & d$D_Russian  %in% c(0,NA,"NA") & d$D_Arabic  %in% c(0,NA,"NA") & d$D_Persian  %in% c(0,NA,"NA") & d$Turk_total == 0),]))
 georgian$Speaker <- rownames(georgian)
 georgian <- left_join(Districts, georgian, by= c("Speaker"))
 #georgian$District <- as.factor(georgian$District)
@@ -94,7 +93,7 @@ georgian$District <- factor(georgian$District, levels(georgian$District) <- c("A
 georgian <- gather(georgian,Lexeme,Present, the_ant_1:the_year_5,factor_key=TRUE)
 #head(georgian)
 
-chechen <-  as.data.frame(t(d[which(d$D_Chechen>0 & d$D_Russian != 1 & d$D_Arabic != 1 & d$D_Persian != 1 & d$Turk_total == 0),]))
+chechen <-  as.data.frame(t(d[which(d$D_Chechen>0 & d$D_Russian  %in% c(0,NA,"NA") & d$D_Arabic  %in% c(0,NA,"NA") & d$D_Persian  %in% c(0,NA,"NA") & d$Turk_total == 0),]))
 chechen$Speaker <- rownames(chechen)
 chechen <- left_join(Districts, chechen, by= c("Speaker"))
 #chechen$District <- as.factor(chechen$District)
@@ -150,15 +149,15 @@ Area <- factor(loan_counts$District, levels  = c("Rutul","Tsunta","Botlikh","Akh
 p1 <- ggplot(data = loan_counts, aes(x = Area, y = Loans)) + 
   geom_jitter(aes(color = Village), position = position_jitter(width = 0.3, height = 0.1)) +
   stat_summary(fun.y = "median", geom = "point", pch = 3, group = 1, size = 5)+
-  labs(title = "Fig. 1. Influence from major languages", x = "", y = "Number of Loanwords")+
+  labs(title = "Fig. 2. Percentages of borrowings across the four districts", x = "", y = "Number of Loanwords")+
   theme_bw()+
   facet_wrap(. ~ factor(Source, levels = c("Turkic", "Avar", "Georgian", "Chechen")), nrow = 1, scales = "free")+
   theme(legend.position = "bottom", axis.text.x = element_text(angle = -30))
 #p5
 #par(mfcol=c(1,4))
 #library(gridExtra)
-library(plotly)
-soursesLexPlot <- ggplotly(p1) %>%
+soursesLexPlot <-
+ggplotly(p1) %>%
   layout(legend = list(
     size = 30
   )
@@ -171,7 +170,11 @@ soursesLexPlot <- ggplotly(p1) %>%
 #subplot(p1, p2, p3, p4) %>%
 #  layout(showlegend = FALSE)
 
+
 sourcesLexPage <- fluidPage(fluidRow(column(
   12,
+  p("The four plots presented here show lexical influence from Turkic, Avar, 
+    Georgian and Chechen. The data are split by districts on X axis. Y axis shows the percentage of the loans found in the elicited samples. 
+    Dots represent elicitations (color shows the village), with a horizontal line showing the median value per district."),
   div(renderPlotly(soursesLexPlot))
 )))
