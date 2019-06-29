@@ -263,7 +263,7 @@ body <- dashboardBody(
   )
 )
 
-# Put all together into a dashboardPage
+# Put all together into dashboardPage
 shinyUI(dashboardPage(
   dashboardHeader(title = "Daghestanian loans database", titleWidth = 308),
   sidebar,
