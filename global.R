@@ -1,4 +1,5 @@
 library(DT)
+library(plyr)
 library(tidyverse)
 library(ggplot2)
 library(plotly)

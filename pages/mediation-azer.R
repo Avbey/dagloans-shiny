@@ -14,7 +14,6 @@ all_turkic_wide <- all_turkic_wide[,-c(1:4)]
 all_turkic_wide <- t(all_turkic_wide)
 all_turkic_wide <- as.data.frame(all_turkic_wide)
 #all_turkic_wide$Lexeme <- row.names(all_turkic_wide)
-library('UpSetR')
 
 turkic=as.matrix(all_turkic_wide)
 turkic[is.na(turkic)] <- 0
