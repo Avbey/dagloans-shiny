@@ -31,6 +31,7 @@ dist_count <- function(data) {
   return(data2)
 }
 
+
 # loading data - mind the date in the csv filename!
 words <- read_tsv("data/words_standardized_01042019.tsv")
 
