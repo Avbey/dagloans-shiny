@@ -1,21 +1,28 @@
 library(shinydashboard)
-source("pages/mediation-turkic.R")
+source("modules/UpSet-mediationUI.R")
 
 sidebar <- dashboardSidebar(
   sidebarMenu(
     menuItem("About project", tabName = "about", icon = icon("info")),
     menuItem("How to cite this project", tabName = "howto", icon = icon("question")),
     menuItem("The database", tabName = "database", icon = icon("th")),
-    menuItem("Map of the surveyed villages", tabName = "mapsurv", icon = icon("map-marked")),
-    menuItem("Sample lexical map", tabName = "maplex", icon = icon("map-marked")),
+    menuItem("Interactive maps", tabName = "maps", icon = icon("map"),
+             menuSubItem("Map of the surveyed villages", tabName = "mapsurv", icon = icon("map-marked")),
+             menuSubItem("Lexical map", tabName = "maplex", icon = icon("map-marked-alt"))),
     menuItem("Sources of lexical influence", tabName = "sourceslex", icon = icon("table")),
-    menuItem("Cluster Dendrogram of Foreign Influence", tabName = "clusterdend", icon = icon("chart-bar")),
-    menuItem(HTML("Cluster Dendrogram of Foreign Influence<br> (Strict Distances)"), tabName = "clusterdend-strict", icon = icon("chart-bar")),
-    menuItem("Mediation of Turkic influence (Speakers)", tabName = "mediation-speakers", icon = icon("chart-bar")),
-    menuItem("Mediation of Turkic influence (Villages)", tabName = "mediation-villages", icon = icon("chart-bar")),
-    menuItem("Mediation of Total Turkic Influence", tabName = "mediation-turkic", icon = icon("chart-bar")),
-    menuItem("Mediation of Standard Azerbaijani Influence", tabName = "mediation-azer", icon = icon("chart-bar")),
-    menuItem(HTML("Mediation of Turkic Influence<br>via Major Languages"), tabName = "mediation-azer-major", icon = icon("chart-bar")),
+    menuItem("Cluster Dendrograms", tabName = "clusterdends", icon = icon("chart-area"),
+             menuSubItem("Foreign Influence", tabName = "clusterdend", icon = icon("chart-area")),
+             menuSubItem("Foreign Influence (Strict Distances)", tabName = "clusterdend-strict", icon = icon("chart-area"))),
+    menuItem("Mediation of Turkic influence", tabName = "mediation-turkic", icon = icon("chart-bar"),
+             menuSubItem("Between speakers", tabName = "mediation-turkic-speakers", icon = icon("user-friends")),
+             menuSubItem("Between villages", tabName = "mediation-turkic-villages", icon = icon("home"))),
+    menuItem("Mediation of Total Turkic Influence", tabName = "mediation-turkic-total", icon = icon("chart-bar"),
+             menuSubItem("Between villages", tabName = "mediation-turkic-total-villages", icon = icon("home")),
+             menuSubItem("Between regions", tabName = "mediation-turkic-total-regions", icon = icon("atlas"))),
+    menuItem(HTML("Mediation of Turkic Influence<br>via Major Languages"), tabName = "mediation-turkic-major", icon = icon("chart-bar")),
+    menuItem(HTML("Mediation of Standard<br>Azerbaijani Influence"), tabName = "mediation-azer", icon = icon("chart-bar"),
+             menuSubItem("Between villages", tabName = "mediation-azer-villages", icon = icon("home")),
+             menuSubItem("Between regions", tabName = "mediation-azer-regions", icon = icon("atlas"))),
     menuItem("Acknowledgements", tabName = "acknowledgements", icon = icon("bookmark")),
     menuItem("References", tabName = "references", icon = icon("paperclip"))
   ),
@@ -27,61 +34,23 @@ body <- dashboardBody(
     tags$link(rel = "stylesheet", type = "text/css", href = "styles.css")
   ),
   tabItems(
-    tabItem(tabName = "about",
-          uiOutput("about")
-    ),
-
-    tabItem(tabName = "howto",
-           uiOutput("howto")
-    ),
-
-    tabItem(tabName = "database",
-           uiOutput("theDatabase")
-    ),
-
-    tabItem(tabName = "mapsurv",
-           uiOutput("mapsurv")
-    ),
-
-    tabItem(tabName = "maplex",
-           uiOutput("maplex")
-    ),
-
-    tabItem(tabName = "sourceslex",
-            uiOutput("sourceslex")
-    ),
-
-    tabItem(tabName = "clusterdend",
-            uiOutput("clusterDend")
-    ),
-
-    tabItem(tabName = "clusterdend-strict",
-            uiOutput("clusterDendStrict")
-    ),
-
-    tabItem(tabName = "mediation-speakers",
-            uiOutput("mediationSpeakers")
-    ),
-
-    tabItem(tabName = "mediation-villages",
-            uiOutput("mediationVillages")
-    ),
-
-    tabItem(tabName = "mediation-turkic",
-            mediationTurkicUI("mediationturkictotal")),
-    
-    tabItem(tabName = "mediation-azer",
-            uiOutput("mediationAzer")
-    ),
-    tabItem(tabName = "mediation-azer-major",
-            uiOutput("mediationAzerMajor")
-    ),
-    tabItem(tabName = "acknowledgements",
-            uiOutput("acknowledgements")
-    ),
-    tabItem(tabName = "references",
-            uiOutput("references")
-    )
+    tabItem(tabName = "about", uiOutput("about")),
+    tabItem(tabName = "howto", uiOutput("howto")),
+    tabItem(tabName = "database", uiOutput("theDatabase")),
+    tabItem(tabName = "mapsurv", uiOutput("mapsurv")),
+    tabItem(tabName = "maplex", uiOutput("maplex")),
+    tabItem(tabName = "sourceslex", uiOutput("sourceslex")),
+    tabItem(tabName = "clusterdend", uiOutput("clusterDend")),
+    tabItem(tabName = "clusterdend-strict", uiOutput("clusterDendStrict")),
+    tabItem(tabName = "mediation-turkic-speakers", uiOutput("mediationSpeakers")),
+    tabItem(tabName = "mediation-turkic-villages", uiOutput("mediationVillages")),
+    tabItem(tabName = "mediation-turkic-total-villages", UpSetMediationUI("turkictotalvillages")),
+    tabItem(tabName = "mediation-turkic-total-regions", UpSetMediationUI("turkictotalregions")),
+    tabItem(tabName = "mediation-turkic-major", uiOutput("mediationTurkicMajor")),
+    tabItem(tabName = "mediation-azer-villages", UpSetMediationUI("azervillages")),
+    tabItem(tabName = "mediation-azer-regions", UpSetMediationUI("azerregions")),
+    tabItem(tabName = "acknowledgements", uiOutput("acknowledgements")),
+    tabItem(tabName = "references", uiOutput("references"))
   )
 )
 

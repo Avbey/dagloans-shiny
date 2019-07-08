@@ -2,7 +2,6 @@ content <- words_meta %>%
   group_by(`List ID`, Language, Word) %>%
   summarise(Words = n())
 
-
 languages <- length(unique(content$Language))
 target_words <- sum(content$Words)
 

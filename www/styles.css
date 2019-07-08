@@ -21,3 +21,7 @@ p {
 .reflink div {
   display: inline;
 }
+
+.form-group {
+  margin-top: 15px;
+}

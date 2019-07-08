@@ -266,7 +266,7 @@ p_mediation_3 <- renderPlotly({  ggplot(data = dat, aes(x = InAG, y = Percent, l
 
 ####################################
 
-mediationAzerMajorPage <- fluidPage(fluidRow(column(
+mediationTurkicMajorPage <- fluidPage(fluidRow(column(
   12,
   p("The first two plots (the first set) presented here in the show how lexical influence from Turkic is mediated by the Lezgian 
     and the Khlut (Akhty) dialect of Lezgian across Daghestan. The data presented here are mostly relevant for the Rutul region, 
