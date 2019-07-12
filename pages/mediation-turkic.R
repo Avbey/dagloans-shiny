@@ -10,7 +10,7 @@ all_turkic_wide_total_village <- as.data.frame(t(all_turkic_wide_total_village[,
 colnames(all_turkic_wide_total_village) <- villages
 
 # By Languages
-all_turkic_wide_total_language <- ddply(all_turkic_wide_total, "Language", numcolwise(sum)) # sum all rows by District
+all_turkic_wide_total_language <- ddply(all_turkic_wide_total, "Language", numcolwise(sum)) # sum all rows by Language
 all_turkic_wide_total_language[is.na(all_turkic_wide_total_language)] <- 0 
 all_turkic_wide_total_language[,-1] <- ifelse(all_turkic_wide_total_language[,-1] > 0, 1, 0) # normalize DF
 # transpose DF to satisfy UpsetR plotting function

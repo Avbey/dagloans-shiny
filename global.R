@@ -54,6 +54,9 @@ database <- words_meta %>% select(`Concept nr.`, Concept, Word, `Standardized Tr
 
 #dummy_dataset <- read.csv("words01032019_dummy.tsv", sep = "\t", header = TRUE)
 
+# df for lexical map
+maplex_words <- words_meta[complete.cases(words_meta$Word),]
+maplex_words <- maplex_words[complete.cases(maplex_words$Glottocode),]
 
 
 

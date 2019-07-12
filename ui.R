@@ -1,5 +1,6 @@
 library(shinydashboard)
 source("modules/UpSet-mediationUI.R")
+source("modules/LexicalMapUI.R")
 
 sidebar <- dashboardSidebar(
   sidebarMenu(
@@ -38,7 +39,7 @@ body <- dashboardBody(
     tabItem(tabName = "howto", uiOutput("howto")),
     tabItem(tabName = "database", uiOutput("theDatabase")),
     tabItem(tabName = "mapsurv", uiOutput("mapsurv")),
-    tabItem(tabName = "maplex", uiOutput("maplex")),
+    tabItem(tabName = "maplex", LexicalMapUI("maplex")),
     tabItem(tabName = "sourceslex", uiOutput("sourceslex")),
     tabItem(tabName = "clusterdend", uiOutput("clusterDend")),
     tabItem(tabName = "clusterdend-strict", uiOutput("clusterDendStrict")),

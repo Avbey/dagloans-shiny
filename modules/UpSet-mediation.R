@@ -2,9 +2,11 @@ UpSetMediation <- function(input, output, session, data) {
   mat_prop <- reactive({
     mat_prop <- input$mbratio
   })
+  
   upset_width <- reactive({
     return(input$upset_width)
   })
+  
   upset_height <- reactive({
     return(input$upset_height)
   })
@@ -41,11 +43,11 @@ UpSetMediation <- function(input, output, session, data) {
     mbcolor <- input$mbcolor
     return(mbcolor)
   })
+  
   sets_bar_color <- reactive({
     sbcolor <- input$sbcolor
     return(sbcolor)
   })
-  
   
   decrease <- reactive({
     decrease <- as.character(input$decreasing)
