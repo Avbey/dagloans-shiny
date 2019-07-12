@@ -7,19 +7,6 @@ spkr <- dist_no_dict$Speaker
 dist_no_dict$Speaker <- NULL
 row.names(dist_no_dict) <- spkr
 
-
-#d_no_dict <- d
-#d_no_dict$Turkic_total <- NULL
-#d_no_dict$AvarAndic_total <- NULL
-#d_no_dict <- as.data.frame(t(d_no_dict))
-#d_no_dict$Speaker <- row.names(d_no_dict)
-#d_no_dict <- left_join(Districts, d_no_dict, by= c("Speaker"))
-#d_no_dict <- d_no_dict[-which(d_no_dict$Village == "Dictionary"),]
-#row.names(d_no_dict) <- d_no_dict$Speaker
-#d_no_dict <- d_no_dict[,-c(1:4)]
-#d_no_dict <- as.matrix(d_no_dict)
-
-#full_dist <- dist_count(d_no_dict)
 full_dist <- dist_no_dict
 full_dist <- as.dist(full_dist)
 result <- pvclust::pvclust(as.matrix(full_dist), method.hclust="average", nboot=100, quiet=TRUE)
@@ -52,6 +39,6 @@ result %>% pvrect(alpha=0.95)
 clusterDendPage <- fluidPage(fluidRow(column(
   12,
   p("The dendrogram presented here show how the word lists collected from diffferent speakers group according to the sets of loanwords of different origin.
-    This tree is built as follows. 0 distance is given only to two matching non-empty cells, otherwise the distance is 1. The NA’s are not counted."),
+    This tree is built as follows. 0 distance is given only to two matching non-empty cells, otherwise the distance is 1. The The NA's are not counted."),
   div(dend1)
 )))
