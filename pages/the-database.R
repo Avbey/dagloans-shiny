@@ -10,7 +10,26 @@ database$Concept <- as.factor(database$Concept)
 database$Set <- as.factor(database$Set)
 database$District <- as.factor(database$District)
 
-databaseTable <- DT::renderDataTable({database}, class = 'cell-border stripe', 
+# library(DT)
+# library(plyr)
+# library(tidyverse)
+# library(ggplot2)
+# library(plotly)
+# library(lingtypology)
+# library(dendextend)
+# library(pvclust)
+# library(UpSetR)
+# library(leaflet)
+# library(colourpicker)
+# library(dplyr)
+# Kaitag <- words_meta[which(database$District %in% c("Kaitag", "Dictionary")),]
+# Kaitag <- Kaitag[,which(colnames(Kaitag) %in% c("Code", "Word", "Concept"))]
+# Kaitag_aggr <- ddply(Kaitag, .(Code, Concept), summarize,
+#            Wordc=paste(Word,collapse=", "))
+# Kaitag_wide <- spread(Kaitag_aggr, Code, Wordc)
+# write_tsv(as.data.frame(Kaitag_wide), "Kaitag.tsv", na = "NA")
+
+databaseTable <- DT::renderDataTable({database}, class = 'cell-border stripe compact', 
                                      filter = 'top', 
                                      extensions = 'Buttons', 
                                      options = list(

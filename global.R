@@ -6,9 +6,12 @@ library(plotly)
 library(lingtypology)
 library(dendextend)
 library(pvclust)
-library(UpSetR)
 library(leaflet)
 library(colourpicker)
+library(rlang)
+library(RSQLite)
+library(DBI)
+library(openssl)
 
 
 #These functions count the necessary distances
@@ -57,6 +60,7 @@ database <- words_meta %>% select(`Concept nr.`, Concept, Word, `Standardized Tr
 # df for lexical map
 maplex_words <- words_meta[complete.cases(words_meta$Word),]
 maplex_words <- maplex_words[complete.cases(maplex_words$Glottocode),]
+maplex_words$StdTran <- sapply(strsplit(maplex_words$`Standardized Transcription`, ';'),  '[', 1)
 
 
 

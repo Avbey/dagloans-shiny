@@ -13,10 +13,8 @@ LexicalMap <- function(input, output, session, data_) {
     data.frame(data_[(data_$Concept == input$lexmap_set),])
   })
   
-  colorpal <- reactive({ 
-    colorFactor(
-      palette = "magma", 
-      levels = data_$Set)
+  colorpal <- reactive({
+    colorFactor("Set1", domain=NULL, alpha=FALSE)
   })
   
   output$map <- renderLeaflet({
@@ -31,7 +29,8 @@ LexicalMap <- function(input, output, session, data_) {
       pal = colorpal()
       leafletProxy("map", data = Selected_concept()) %>%
       clearShapes() %>% 
-      addCircleMarkers(~Lon, ~Lat, color = ~pal(Set), radius = 6, stroke = FALSE, 
+      addCircleMarkers(~Lon, ~Lat, color = ~pal(StdTran), radius = 5, fill = TRUE, fillColor = ~pal(StdTran),  
+                       fillOpacity = 1, stroke = FALSE, 
                        popup = ~as.character(Word), label = ~as.character(Language))
     }
   })
@@ -46,9 +45,10 @@ LexicalMap <- function(input, output, session, data_) {
         proxy %>% addLegend(
           position = "bottomleft", 
           pal = pal, 
-          values = ~Set,
-          title = "Sets",
-          opacity = 0.99
+          values = ~StdTran,
+          labels = ~StdTran,
+          title = "",
+          opacity = 1
           )
       }
     }

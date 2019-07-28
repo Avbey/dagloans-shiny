@@ -1,3 +1,5 @@
+library(UpSetR)
+
 UpSetMediation <- function(input, output, session, data) {
   mat_prop <- reactive({
     mat_prop <- input$mbratio
