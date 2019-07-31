@@ -1,4 +1,4 @@
-library(shinydashboard)
+source("modules/ViewDatabaseUI.R")
 source("modules/EditDatabaseUI.R")
 source("modules/UpSet-mediationUI.R")
 source("modules/LexicalMapUI.R")
@@ -19,11 +19,11 @@ sidebar <- dashboardSidebar(
              menuSubItem("Foreign Influence (Strict Distances)", tabName = "clusterdend-strict", icon = icon("chart-area"))),
     menuItem("Mediation of Turkic influence", tabName = "mediation-turkic", icon = icon("chart-bar"),
              menuSubItem("Between speakers", tabName = "mediation-turkic-speakers", icon = icon("user-friends")),
-             menuSubItem("Between villages", tabName = "mediation-turkic-villages", icon = icon("home"))),
+             menuSubItem("Between villages", tabName = "mediation-turkic-villages", icon = icon("home")),
+             menuSubItem("Via major languages", tabName = "mediation-turkic-major", icon = icon("list"))),
     menuItem("Mediation of Total Turkic Influence", tabName = "mediation-turkic-total", icon = icon("chart-bar"),
              menuSubItem("Between villages", tabName = "mediation-turkic-total-villages", icon = icon("home")),
              menuSubItem("Between languages", tabName = "mediation-turkic-total-languages", icon = icon("atlas"))),
-    menuItem(HTML("Mediation of Turkic Influence<br>via Major Languages"), tabName = "mediation-turkic-major", icon = icon("chart-bar")),
     menuItem(HTML("Mediation of Standard<br>Azerbaijani Influence"), tabName = "mediation-azer", icon = icon("chart-bar"),
              menuSubItem("Between villages", tabName = "mediation-azer-villages", icon = icon("home")),
              menuSubItem("Between languages", tabName = "mediation-azer-languages", icon = icon("atlas"))),
@@ -40,7 +40,7 @@ body <- dashboardBody(
   tabItems(
     tabItem(tabName = "about", uiOutput("about")),
     tabItem(tabName = "howto", uiOutput("howto")),
-    tabItem(tabName = "database-view", uiOutput("theDatabase")),
+    tabItem(tabName = "database-view", ViewDatabaseUI("viewdb")),
     tabItem(tabName = "database-edit", EditDatabaseUI("editdb")),
     tabItem(tabName = "mapsurv", uiOutput("mapsurv")),
     tabItem(tabName = "maplex", LexicalMapUI("maplex")),

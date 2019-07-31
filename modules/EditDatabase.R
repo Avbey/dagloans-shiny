@@ -1,8 +1,3 @@
-# Database ----------------------------------------------------------------
-
-DB_NAME <- "data.sqlite"
-TBL_USER_DATA <- "users"
-
 DB_test_connect <- function(){
   db <- dbConnect(RSQLite::SQLite(), DB_NAME)
   
@@ -21,16 +16,6 @@ DB_test_connect <- function(){
   
   print("- Table exists.")
   print("#######################")
-  
-  dbDisconnect(db)
-}
-
-DB_upload_csv <- function(filename, tblname){
-  db <- dbConnect(RSQLite::SQLite(), DB_NAME)
-  
-  df <- read.csv(file = filename, header = T, row.names = F, stringsAsFactors = F)
-  
-  dbWriteTable(db, tblname, df)
   
   dbDisconnect(db)
 }
@@ -60,7 +45,6 @@ DB_add_user <- function(usr, pass){
   
 }
 
-# Init Database -----------------------------------------------------------
 
 DB_test_connect()
 
@@ -71,7 +55,7 @@ EditDatabase <- function(input, output, session) {
   loggedIn <- reactiveVal(value = FALSE)
   user <- reactiveVal(value = NULL)
   
-  # for test purposes
+  # For test purposes
   admin <- DB_get_user("admin")
   if(nrow(admin) == 0) {
     DB_add_user("admin", "admin")
@@ -96,32 +80,7 @@ EditDatabase <- function(input, output, session) {
     return(FALSE)
     
   })
-  # register_user <- eventReactive(input$register_user, {
-  # 
-  #   users_data <- DB_get_user(input$new_user)
-  # 
-  #   if(nrow(users_data) > 0){
-  #     return(span("User already exists", style = "color:red"))
-  #   }
-  # 
-  #   new_hash <- sha256(input$new_pw)
-  #   new_user <- input$new_user
-  # 
-  #   DB_add_user(new_user, new_hash)
-  # 
-  #   print("- New user added to database")
-  # 
-  #   return(span("New user registered", style = "color:green"))
-  # 
-  # })
-  
-  # output$register_status <- renderUI({
-  #   if(input$register_user == 0){
-  #     return(NULL)
-  #   } else {
-  #     register_user()
-  #   }
-  # })
+
   output$login_status <- renderUI({
     if(input$login == 0){
       return(NULL)
@@ -132,21 +91,6 @@ EditDatabase <- function(input, output, session) {
     }
   })
   
-  # observeEvent(input$create_login, {
-  #   showModal(
-  #     modalDialog(title = "Create Login", size = "m",
-  #                 textInput(inputId = "new_user", label = "Username"),
-  #                 passwordInput(inputId = "new_pw", label = "Password"),
-  #                 actionButton(inputId = "register_user", label = "Submit"),
-  #                 p(input$register_user),
-  #                 uiOutput("register_status")
-  # 
-  #     )
-  #   )
-  # 
-  #   register_user()
-  # 
-  # })
   observeEvent(input$logout, {
     user(NULL)
     loggedIn(FALSE)
@@ -155,37 +99,33 @@ EditDatabase <- function(input, output, session) {
   
   observe({
     if(loggedIn()){
-      output$App_Panel <- renderUI({
+      output$page <- renderUI({
         fluidPage(
           fluidRow(
             strong(paste("logged in as", user(), "|")), actionLink(ns("logout"), "Logout"), align = "right",
             hr()
           ),
           fluidRow(
-            titlePanel(title = ""), align = "center"
+            uiOutput('datatable')
           )
         )
         
       })
     } else {
-      output$App_Panel <- renderUI({
-        fluidPage(
-          fluidRow(
-            column(4, offset = 4,
-                   wellPanel(
-                     h3("Authentication Required", align = "center"),
-                     textInput(ns("username"), label = "Username"),
-                     passwordInput(ns("password"), label = "Password"),
-                     fluidRow(
-                       column(6, offset = 4, actionButton(ns("login"), label = "Login")),
-                       # column(4, offset = 4, actionLink(inputId = "create_login", label = "Create login")),
-                       column(6, offset = 3, uiOutput(ns("login_status"))
-                       )
-                     )
-                   )
+      output$page <- renderUI({
+        fluidPage(fluidRow(column(4, offset = 4,
+          div(class = "auth-box",
+            wellPanel(
+              h3("Authentication Required", align = "center"),
+              textInput(ns("username"), label = "Username"),
+              passwordInput(ns("password"), label = "Password"),
+              fluidRow(
+                column(6, offset = 4, actionButton(ns("login"), label = "Login")),
+                column(8, offset = 3, uiOutput(ns("login_status")))
+              )
             )
           )
-        )
+        )))
       })
     }
   })
