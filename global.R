@@ -15,6 +15,9 @@ library(rlang)
 library(RSQLite)
 library(DBI)
 library(openssl)
+library(devtools)
+devtools::install_github('jbryer/DTedit')
+library(DTedit)
 
 
 # Authentication
